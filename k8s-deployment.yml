@@ -1,0 +1,52 @@
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-k8s
+  labels:
+    app: tesk-k8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tesk-k8s
+  template:
+    metadata:
+      labels:
+        app: tesk-k8s
+    spec:
+      containers:
+        - name: tesk-k8s
+          image: "test-k8s:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-k8s
+  labels:
+    app: tesk-k8s
+spec:
+  selector:
+    app: tesk-k8s
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+      nodePort: 30000

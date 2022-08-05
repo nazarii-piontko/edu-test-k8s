@@ -1,0 +1,128 @@
+---
+# Source: tesk-k8s/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-k8s
+  labels:
+    helm.sh/chart: tesk-k8s-0.1.0
+    app.kubernetes.io/name: tesk-k8s
+    app.kubernetes.io/instance: test-k8s
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: tesk-k8s/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-k8s-tesk-k8s
+  labels:
+    helm.sh/chart: tesk-k8s-0.1.0
+    app.kubernetes.io/name: tesk-k8s
+    app.kubernetes.io/instance: test-k8s
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: tesk-k8s
+    app.kubernetes.io/instance: test-k8s
+---
+# Source: tesk-k8s/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-k8s-tesk-k8s
+  labels:
+    helm.sh/chart: tesk-k8s-0.1.0
+    app.kubernetes.io/name: tesk-k8s
+    app.kubernetes.io/instance: test-k8s
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tesk-k8s
+      app.kubernetes.io/instance: test-k8s
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tesk-k8s
+        app.kubernetes.io/instance: test-k8s
+    spec:
+      serviceAccountName: test-k8s
+      securityContext:
+        {}
+      containers:
+        - name: tesk-k8s
+          securityContext:
+            {}
+          image: "test-k8s:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {}
+---
+# Source: tesk-k8s/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-k8s-tesk-k8s
+  labels:
+    helm.sh/chart: tesk-k8s-0.1.0
+    app.kubernetes.io/name: tesk-k8s
+    app.kubernetes.io/instance: test-k8s
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: "test-k8s.local"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: test-k8s-tesk-k8s
+                port:
+                  number: 80
+---
+# Source: tesk-k8s/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "test-k8s-tesk-k8s-test-connection"
+  labels:
+    helm.sh/chart: tesk-k8s-0.1.0
+    app.kubernetes.io/name: tesk-k8s
+    app.kubernetes.io/instance: test-k8s
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['test-k8s-tesk-k8s:80']
+  restartPolicy: Never

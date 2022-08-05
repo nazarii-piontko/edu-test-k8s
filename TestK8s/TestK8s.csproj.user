@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ActiveDebugProfile>Bridge to Kubernetes</ActiveDebugProfile>
+  </PropertyGroup>
+  <ItemGroup>
+    <DevSpacesDebugProfileUserSetting Include="Bridge to Kubernetes">
+      <ClusterSource>KUBECONFIG</ClusterSource>
+      <ClusterName>docker-desktop</ClusterName>
+      <Context>docker-desktop</Context>
+      <Namespace>default</Namespace>
+      <ServiceName>test-k8s-tesk-k8s</ServiceName>
+      <RoutingHeader>
+      </RoutingHeader>
+      <LaunchUrl>http://test-k8s.local/hello</LaunchUrl>
+      <LocalLaunchProfile>TestK8s</LocalLaunchProfile>
+    </DevSpacesDebugProfileUserSetting>
+  </ItemGroup>
+</Project>

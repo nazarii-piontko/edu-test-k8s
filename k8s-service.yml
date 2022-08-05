@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-k8s
+  labels:
+    app: tesk-k8s
+spec:
+  selector:
+    app: tesk-k8s
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+      nodePort: 30000

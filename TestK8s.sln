@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestK8s", "TestK8s\TestK8s.csproj", "{B3A99645-E8AB-4B8A-ACF0-4C8CED363BFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{CE54C101-1B5F-408F-9734-543FDAB589D1}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		k8s-pod.yml = k8s-pod.yml
+		k8s-full.yml = k8s-full.yml
+		kind.yml = kind.yml
+		k8s-deployment.yml = k8s-deployment.yml
+		k8s-service.yml = k8s-service.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helm", "Helm", "{4D5A43E9-6477-4995-A462-A40792806F07}"
+	ProjectSection(SolutionItems) = preProject
+		helm\.helmignore = helm\.helmignore
+		helm\Chart.yaml = helm\Chart.yaml
+		helm\values.yaml = helm\values.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charts", "charts", "{D3659870-8309-4ED3-87B9-4C6BF17C623F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{A6CD73FC-C96C-4569-B3E3-9D1E72A25328}"
+	ProjectSection(SolutionItems) = preProject
+		helm\templates\_helpers.tpl = helm\templates\_helpers.tpl
+		helm\templates\deployment.yaml = helm\templates\deployment.yaml
+		helm\templates\hpa.yaml = helm\templates\hpa.yaml
+		helm\templates\ingress.yaml = helm\templates\ingress.yaml
+		helm\templates\NOTES.txt = helm\templates\NOTES.txt
+		helm\templates\service.yaml = helm\templates\service.yaml
+		helm\templates\serviceaccount.yaml = helm\templates\serviceaccount.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F118776-879A-47DF-A991-98DC2840CC70}"
+	ProjectSection(SolutionItems) = preProject
+		helm\templates\tests\test-connection.yaml = helm\templates\tests\test-connection.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3A99645-E8AB-4B8A-ACF0-4C8CED363BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A99645-E8AB-4B8A-ACF0-4C8CED363BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A99645-E8AB-4B8A-ACF0-4C8CED363BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A99645-E8AB-4B8A-ACF0-4C8CED363BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D3659870-8309-4ED3-87B9-4C6BF17C623F} = {4D5A43E9-6477-4995-A462-A40792806F07}
+		{A6CD73FC-C96C-4569-B3E3-9D1E72A25328} = {4D5A43E9-6477-4995-A462-A40792806F07}
+		{4F118776-879A-47DF-A991-98DC2840CC70} = {A6CD73FC-C96C-4569-B3E3-9D1E72A25328}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B466C485-85EF-484D-91E1-606C63F817AB}
+	EndGlobalSection
+EndGlobal
