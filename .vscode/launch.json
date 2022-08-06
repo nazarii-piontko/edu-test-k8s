@@ -1,0 +1,58 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch TestK8s (Debug)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/TestK8s/bin/Debug/net6.0/TestK8s.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/TestK8s",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": "Launch TestK8s (Debug) with Kubernetes",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "bridge-to-kubernetes.compound",
+            "program": "${workspaceFolder}/TestK8s/bin/Debug/net6.0/TestK8s.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/TestK8s",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://+:8080"
+            }
+        },
+        {
+            "name": "Attach to TestK8s in Kubernetes",
+            "type": "coreclr",
+            "request": "attach",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "kubectl",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "test-k8s",
+                    "--",
+                    "/bin/sh",
+                    "-c"
+                ],
+                "debuggerPath": "~/vsdbg/vsdbg"
+            },
+            "processName": "dotnet",
+            "sourceFileMap": {
+                "/src": "${workspaceFolder}"
+            }
+        }
+    ]
+}

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ public class HelloController : ControllerBase
         b.AppendLine("Hello World!");
         b.AppendLine();
 
+        b.AppendLine("#### Request ####");
         b.AppendFormat("{0} {1} {2}", r.Scheme.ToUpperInvariant(), r.Method, r.Path.ToUriComponent());
         b.AppendLine();
 
@@ -27,6 +29,16 @@ public class HelloController : ControllerBase
                 b.Append(" = ");
                 b.AppendLine(value);
             }
+        }
+        b.AppendLine();
+
+        b.AppendLine("#### Environment ####");
+        foreach (DictionaryEntry pair in Environment.GetEnvironmentVariables())
+        {
+            b.Append(pair.Key);
+            b.Append(" = ");
+            b.Append(pair.Value);
+            b.AppendLine();
         }
         
         return b.ToString();
